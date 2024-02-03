@@ -6,8 +6,8 @@ import io.reactivex.rxjava3.core.Flowable
 
 class MusicRepository(
     private val musicDataApiService: MusicDataApiService,
-
 ) {
     fun getNirvana(): Flowable<MusicData> {
-        return musicDataApiService.getNirvana("androidMusicBrainz/1.0")    }
+        return musicDataApiService.getNirvana()
+    }
 }
