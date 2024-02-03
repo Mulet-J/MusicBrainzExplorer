@@ -24,4 +24,5 @@ data class Artist(
     @SerializedName("gender-id")
     val genderId: String?,
     val gender: String?,
+    val ipis: List<String>?
 )

@@ -1,6 +1,7 @@
 package com.example.musiclibrary.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.musiclibrary.model.musicBrainzData.MusicData
 import com.example.musiclibrary.repositories.MusicRepository
@@ -14,6 +15,7 @@ class MusicViewModel(
 ): ViewModel() {
     private val disposeBag = CompositeDisposable()
     private val musicData: BehaviorSubject<List<MusicData>> = BehaviorSubject.createDefault(listOf())
+    val musicList: MutableLiveData<List<MusicData>> = MutableLiveData()
 
     init {
 //        this.getMusic()
@@ -27,6 +29,7 @@ class MusicViewModel(
     fun getSomeMusic(callback : ()->Unit): Disposable {
         return this.musicRepository.getNirvana().subscribe({
                 music -> this.musicData.onNext(listOf(music))
+            this.musicList.postValue(listOf(music))
             callback()
         },{
                 error-> Log.d("abazerazerazer", "aezzfdqsd")
