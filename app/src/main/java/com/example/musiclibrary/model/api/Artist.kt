@@ -21,5 +21,4 @@ data class Artist(
     val gender: String?,
     val ipis: List<String>,
     @SerializedName("end-area") val endArea: String?,
-
     )
