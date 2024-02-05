@@ -14,4 +14,27 @@
         tools:text="Nirvana"
         android:textColor="@color/black"
         android:layout_marginStart="8dp"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.MainActivity">
+
+<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--            android:id="@+id/swipe_to_refresh_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="4dp"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:layout_marginTop="8dp">-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recordings_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_layout"
+                tools:itemCount="5"/>
+
+<!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+    </FrameLayout>
+
 </LinearLayout>

@@ -1,8 +1,6 @@
 package com.example.musiclibrary.repositories
 
 import com.example.musiclibrary.model.api.ArtistWithRecordings
-import com.example.musiclibrary.model.api.Recording
-import com.example.musiclibrary.model.musicBrainzData.MusicData
 import com.example.musiclibrary.model.musicBrainzData.RecordingsData
 import com.example.musiclibrary.network.services.MusicDataApiService
 import io.reactivex.rxjava3.core.Flowable

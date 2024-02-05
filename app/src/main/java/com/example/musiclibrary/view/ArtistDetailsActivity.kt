@@ -1,31 +1,30 @@
 package com.example.musiclibrary.view
 
+//import com.example.musiclibrary.model.conversation_model.MessageData
 import android.os.Bundle
-import android.util.Log
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.musiclibrary.R
+import com.example.musiclibrary.model.DataDto
+import com.example.musiclibrary.model.RecordingDto
 import com.example.musiclibrary.model.api.Artist
-//import com.example.musiclibrary.model.conversation_model.MessageData
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
+import com.example.musiclibrary.view.adapters.OnConversationClicked
 import com.example.musiclibrary.viewmodel.MusicViewModel
+import io.reactivex.rxjava3.disposables.Disposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class ArtistDetailsActivity : ComponentActivity() {
+class ArtistDetailsActivity : ComponentActivity(), OnConversationClicked {
 
     private val musicViewModel: MusicViewModel by viewModel()
     //private lateinit var messagesListRv: RecyclerView
     //private lateinit var messageEditText: EditText
     private lateinit var userNameTextView: TextView
+    private lateinit var recordingsListRv: RecyclerView
+
     //private lateinit var backButtonImageButton: ImageButton
     //private lateinit var userProfilePictureImageView: ImageView
     //private lateinit var conversationAdapter: MusicDataAdapter
@@ -43,6 +42,7 @@ class ArtistDetailsActivity : ComponentActivity() {
         val intent = this.intent
         val valeur = intent.getSerializableExtra("artist") as Artist
         this.userNameTextView.text = valeur.name
+        getRecordingsByArtist(valeur);
         // Views setup
         //this.setUConversationsList()
         //this.fillConversationViewWithUserData()
@@ -51,7 +51,28 @@ class ArtistDetailsActivity : ComponentActivity() {
         //this.setUpViewsListeners()
 
         //this.messagesListRv.layoutManager?.smoothScrollToPosition(this.messagesListRv, null, 10)
+
+        this.musicViewModel.recordingsList.observe(this@ArtistDetailsActivity){
+                value ->
+            val artistsDto = value.map { RecordingDto(it) }
+            setUpRecordingList(artistsDto)
+        }
+        this.recordingsListRv = findViewById(R.id.recordings_rv)
     }
+
+    private fun setUpRecordingList(recordingsList: List<RecordingDto>) {
+        val musicDataAdapter = MusicDataAdapter(recordingsList, this)
+        recordingsListRv.layoutManager = LinearLayoutManager( this)
+        recordingsListRv.adapter = musicDataAdapter
+    }
+
+    private fun getRecordingsByArtist(artist: Artist):Disposable{
+        return this.musicViewModel.getRecordingsByArtist(artist)
+    }
+    override fun displayConversation(data: DataDto) {
+        TODO("Not yet implemented")
+    }
+
     /*
     private fun setUpViewsListeners() {
         this.setUpEditTextMessageListener()
@@ -106,4 +127,6 @@ class ArtistDetailsActivity : ComponentActivity() {
             .into(this.userProfilePictureImageView)
     }
     */
+
+
 }

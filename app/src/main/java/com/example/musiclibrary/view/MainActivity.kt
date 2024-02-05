@@ -21,7 +21,6 @@ import com.example.musiclibrary.di.injectModuleDependencies
 import com.example.musiclibrary.model.ArtistDto
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.RecordingDto
-import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.ui.theme.MusicLibraryTheme
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
 import com.example.musiclibrary.view.adapters.OnConversationClicked
@@ -106,7 +105,7 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
 
         }
 
-        this.datasListRv = findViewById(R.id.datas_rv);
+        this.datasListRv = findViewById(R.id.datas_rv)
     }
 
     private fun setUpUsersConversationsList(conversations: List<DataDto>) {

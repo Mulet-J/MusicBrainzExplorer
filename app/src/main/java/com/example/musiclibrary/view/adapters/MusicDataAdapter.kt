@@ -10,7 +10,6 @@ import com.example.musiclibrary.R
 import com.example.musiclibrary.model.ArtistDto
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.RecordingDto
-import com.example.musiclibrary.model.api.Artist
 
 class MusicDataAdapter (
     private val dataList: List<DataDto>,

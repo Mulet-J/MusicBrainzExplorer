@@ -5,13 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.model.api.Recording
-import com.example.musiclibrary.model.musicBrainzData.RecordingsData
 import com.example.musiclibrary.repositories.ArtistRepository
 import com.example.musiclibrary.repositories.MusicRepository
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.addTo
-import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class MusicViewModel(
     private val artistRepository: ArtistRepository,
@@ -47,7 +45,7 @@ class MusicViewModel(
     }
 
     fun getRecordingsByArtist(artist: Artist):Disposable{
-        val artistId = artist.id!!;
+        val artistId = artist.id!!
         return this.recordingRepository.searchRecordsByArtist(artistId).subscribe({
                 result -> this.recordingsList.postValue(result.recordings)
         }, { _ ->
