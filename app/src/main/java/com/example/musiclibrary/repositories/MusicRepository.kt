@@ -1,18 +1,18 @@
 package com.example.musiclibrary.repositories
 
-import com.example.musiclibrary.model.musicBrainzData.ArtistData
 import com.example.musiclibrary.model.musicBrainzData.MusicData
+import com.example.musiclibrary.model.musicBrainzData.RecordingsData
 import com.example.musiclibrary.network.services.MusicDataApiService
 import io.reactivex.rxjava3.core.Flowable
 
 class MusicRepository(
     private val musicDataApiService: MusicDataApiService,
 ) {
-    fun getNirvana(): Flowable<MusicData> {
+    fun getNirvana(): Flowable<RecordingsData> {
         return musicDataApiService.getNirvana()
     }
 
-    fun getArtistByGuid(guid: String): Flowable<ArtistData> {
-        return musicDataApiService.getArtistByGuid(guid)
+    fun searchRecord(input:String): Flowable<RecordingsData>{
+        return musicDataApiService.searchRecord(input)
     }
 }

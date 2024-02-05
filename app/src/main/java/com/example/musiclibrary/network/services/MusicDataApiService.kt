@@ -1,7 +1,10 @@
 package com.example.musiclibrary.network.services
 
-import com.example.musiclibrary.model.musicBrainzData.ArtistData
+import com.example.musiclibrary.model.api.Artist
+
+import com.example.musiclibrary.model.musicBrainzData.ArtistsData
 import com.example.musiclibrary.model.musicBrainzData.MusicData
+import com.example.musiclibrary.model.musicBrainzData.RecordingsData
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,17 +13,15 @@ import retrofit2.http.Query
 interface MusicDataApiService {
 
     @GET("artist/?query=nirvana&fmt=json")
-    fun getNirvana(): Flowable<MusicData>
+    fun getNirvana(): Flowable<RecordingsData>
 
     @GET("artist/?fmt=json")
-    fun searchArtist(@Query("query") query: String): Flowable<ArtistData>
+    fun searchArtist(@Query("query") query: String): Flowable<ArtistsData>
 
     @GET("recording/?fmt=json")
-    fun searchMusic(@Query("query") query: String): Flowable<MusicData>
+    fun searchRecord(@Query("query") query: String): Flowable<RecordingsData>
 
     @GET("artist/{guid}/?fmt=json")
-    fun getArtistByGuid(@Path("guid") guid: String): Flowable<ArtistData>
+    fun getArtistByGuid(@Path("guid") guid: String): Flowable<Artist>
 
-    @GET("{queryType}/?fmt=json")
-    fun search(@Path("queryType") queryType: String, @Query("query") input: String): Flowable<MusicData>
 }

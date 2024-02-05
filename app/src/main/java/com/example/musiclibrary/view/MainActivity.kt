@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.musiclibrary.R
 import com.example.musiclibrary.di.injectModuleDependencies
 import com.example.musiclibrary.model.ArtistDto
-import com.example.musiclibrary.model.musicBrainzData.ArtistData
+import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.ui.theme.MusicLibraryTheme
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
 import com.example.musiclibrary.view.adapters.OnConversationClicked
@@ -84,14 +84,15 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
         searchButton.setOnClickListener{
             val textInput = textField.text.toString()
             val queryType = selectedValue
-            val moncul = ""
             //this.musicViewModel.getSomeMusic {  }
             searchByFilter(textInput, queryType)
         }
 
-        this.musicViewModel.artistList.observe(this@MainActivity){
-            val artistDto = ArtistDto(it)
-            setUpUsersConversationsList(listOf(artistDto,artistDto,artistDto))
+        this.musicViewModel.artistsList.observe(this@MainActivity){
+            value ->
+            val artistsDto = value.map { ArtistDto(it)}
+            setUpUsersConversationsList(artistsDto)
+
         }
 
         this.datasListRv = findViewById(R.id.datas_rv);
@@ -106,7 +107,7 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
     private fun searchByFilter(input: String, queryType: String ){
         this.musicViewModel.search(input, queryType)
     }
-    override fun displayConversation(artistData: ArtistData) {
+    override fun displayConversation(artistData: Artist) {
         TODO("Not yet implemented")
     }
 

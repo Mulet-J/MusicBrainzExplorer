@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.musiclibrary.R
 import com.example.musiclibrary.model.ArtistDto
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.RecordingDto
-import com.example.musiclibrary.model.musicBrainzData.ArtistData
+import com.example.musiclibrary.model.api.Artist
+
 class MusicDataAdapter (
-    private val artistsDataList: List<DataDto>,
+    private val dataList: List<DataDto>,
 //    private val recordingDataList: List<RecordingDto>,
     private val onClickHandler: OnConversationClicked
     ): RecyclerView.Adapter<MusicDataAdapter.MusicDataCellViewHolder>() {
@@ -22,27 +22,37 @@ class MusicDataAdapter (
             return MusicDataCellViewHolder(musicDataView)
         }
         override fun getItemCount(): Int {
-            return artistsDataList.size
+            return dataList.size
         }
 
     override fun getItemViewType(position: Int): Int {
-        return when(artistsDataList[position]) {
-            is ArtistDto -> 1
-            else -> 2
+      return when(dataList[position]) {
+        is ArtistDto -> 1
+          //default RecordingDto
+        else -> 2
         }
     }
         override fun onBindViewHolder(holder: MusicDataCellViewHolder, position: Int) {
-            val artist = this.artistsDataList[position]
+            val item = this.dataList[position]
             when(holder.itemViewType) {
-                1 -> "coucou"
-                else ->  "kikoo"
-            }
-            holder.userNameTv.text = artist.artistData.name
+                1 -> {
+                    holder.userNameTv.text = (item as ArtistDto).artistData.name
 //            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
 
-            holder.itemView.setOnClickListener {
-                onClickHandler.displayConversation(artist.artistData)
+                    holder.itemView.setOnClickListener {
+                        //onClickHandler.displayConversation((item as ArtistDto2).artistData)
+                    }
+                }
+                else ->  {
+                    holder.userNameTv.text = (item as RecordingDto).recordingData.title
+//            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
+
+                    holder.itemView.setOnClickListener {
+                        //onClickHandler.displayConversation((item as RecordingDto2).recordingData)
+                    }
+                }
             }
+
 //            Glide
 //                .with(holder.itemView)
 //                .load("https://robohash.org/${user.infos.profilePicture}")
@@ -68,5 +78,5 @@ class MusicDataAdapter (
     }
 
     interface OnConversationClicked {
-        fun displayConversation(artistData: ArtistData)
+        fun displayConversation(artistData: Artist)
     }
