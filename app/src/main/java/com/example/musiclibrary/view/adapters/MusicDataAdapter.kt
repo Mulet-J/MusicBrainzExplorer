@@ -40,7 +40,7 @@ class MusicDataAdapter (
 //            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
 
                     holder.itemView.setOnClickListener {
-                        //onClickHandler.displayConversation((item as ArtistDto2).artistData)
+                        onClickHandler.displayConversation(item)
                     }
                 }
                 else ->  {
@@ -48,7 +48,7 @@ class MusicDataAdapter (
 //            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
 
                     holder.itemView.setOnClickListener {
-                        //onClickHandler.displayConversation((item as RecordingDto2).recordingData)
+                        onClickHandler.displayConversation(item)
                     }
                 }
             }
@@ -78,5 +78,5 @@ class MusicDataAdapter (
     }
 
     interface OnConversationClicked {
-        fun displayConversation(artistData: Artist)
+        fun displayConversation(data: DataDto)
     }

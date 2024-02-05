@@ -1,6 +1,8 @@
 package com.example.musiclibrary.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -116,11 +118,29 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
     private fun searchByFilter(input: String, queryType: String ){
         this.musicViewModel.search(input, queryType)
     }
-    override fun displayConversation(artistData: Artist) {
-        TODO("Not yet implemented")
+    override fun displayConversation(data: DataDto) {
+        when(data) {
+            is ArtistDto ->{
+                Log.d("artistClicked", "you have clicked!!!!")
+
+                val intent = Intent(this, ArtistDetailsActivity::class.java)
+                intent.putExtra("artist", data.artistData.name)
+                startActivity(intent)
+            }
+            is RecordingDto ->{
+                Log.d("recordingClicked", "you have clicked!!!!")
+                //Intent(
+                   // this,
+                   // RecordingDetailsActivity::class.java
+                //).also {
+                    //this.musicViewModel.currentArtistId = data.artistData.id
+                   // startActivity(it)
+            }
+        }
     }
 
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
