@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.musiclibrary.R
 import com.example.musiclibrary.di.injectModuleDependencies
 import com.example.musiclibrary.model.ArtistDto
+import com.example.musiclibrary.model.DataDto
+import com.example.musiclibrary.model.RecordingDto
 import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.ui.theme.MusicLibraryTheme
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
@@ -95,10 +97,17 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
 
         }
 
+        this.musicViewModel.recordingsList.observe(this@MainActivity){
+                value ->
+            val recordingDto = value.map { RecordingDto(it)}
+            setUpUsersConversationsList(recordingDto)
+
+        }
+
         this.datasListRv = findViewById(R.id.datas_rv);
     }
 
-    private fun setUpUsersConversationsList(conversations: List<ArtistDto>) {
+    private fun setUpUsersConversationsList(conversations: List<DataDto>) {
         val musicDataAdapter = MusicDataAdapter(conversations, this)
         datasListRv.layoutManager = LinearLayoutManager( this)
         datasListRv.adapter = musicDataAdapter
