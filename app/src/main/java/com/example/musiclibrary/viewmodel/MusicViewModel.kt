@@ -45,4 +45,13 @@ class MusicViewModel(
             }).addTo(disposeBag)
         }
     }
+
+    fun getRecordingsByArtist(artist: Artist):Disposable{
+        val artistId = artist.id!!;
+        return this.recordingRepository.searchRecordsByArtist(artistId).subscribe({
+                result -> this.recordingsList.postValue(result.recordings)
+        }, { _ ->
+            Log.d("abazerazerazer", "aezzfdqsd")
+        }).addTo(disposeBag)
+    }
 }

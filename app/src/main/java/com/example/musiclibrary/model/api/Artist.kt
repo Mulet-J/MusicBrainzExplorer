@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Artist(
     val id: String?,
@@ -21,4 +22,4 @@ data class Artist(
     val gender: String?,
     val ipis: List<String>,
     @SerializedName("end-area") val endArea: String?,
-    )
+    ) : Serializable

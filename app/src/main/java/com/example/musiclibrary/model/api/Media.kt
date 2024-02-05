@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Media(
     @SerializedName("track-count") val trackCount: Int?,
@@ -11,4 +12,4 @@ data class Media(
     @SerializedName("format-id") val formatId: String?,
     val discs: ArrayList<Disc>,
     val format: String?,
-)
+) : Serializable

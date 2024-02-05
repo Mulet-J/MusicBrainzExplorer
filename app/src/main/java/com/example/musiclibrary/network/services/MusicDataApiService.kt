@@ -1,6 +1,7 @@
 package com.example.musiclibrary.network.services
 
 import com.example.musiclibrary.model.api.Artist
+import com.example.musiclibrary.model.api.ArtistWithRecordings
 
 import com.example.musiclibrary.model.musicBrainzData.ArtistsData
 import com.example.musiclibrary.model.musicBrainzData.MusicData
@@ -23,5 +24,8 @@ interface MusicDataApiService {
 
     @GET("artist/{guid}/?fmt=json")
     fun getArtistByGuid(@Path("guid") guid: String): Flowable<Artist>
+
+    @GET("artist/{artist_id}/?inc=recordings&fmt=json")
+    fun getArtistRecordings(@Path("artist_id") artist_id: String):Flowable<ArtistWithRecordings>
 
 }

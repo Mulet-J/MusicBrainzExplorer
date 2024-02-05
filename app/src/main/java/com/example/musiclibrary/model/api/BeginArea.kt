@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class BeginArea(
     val id: String?,
@@ -9,4 +10,4 @@ data class BeginArea(
     val name: String?,
     @SerializedName("sort-name") val sortName: String?,
     @SerializedName("life-span") val lifeSpan: LifeSpan?,
-)
+) : Serializable

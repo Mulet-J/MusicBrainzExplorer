@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.musiclibrary.R
+import com.example.musiclibrary.model.api.Artist
 //import com.example.musiclibrary.model.conversation_model.MessageData
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
 import com.example.musiclibrary.viewmodel.MusicViewModel
@@ -40,8 +41,8 @@ class ArtistDetailsActivity : ComponentActivity() {
         //this.userProfilePictureImageView = findViewById(R.id.user_picture_iv)
 
         val intent = this.intent
-        val valeur = intent.getStringExtra("artist")
-        this.userNameTextView.text = valeur
+        val valeur = intent.getSerializableExtra("artist") as Artist
+        this.userNameTextView.text = valeur.name
         // Views setup
         //this.setUConversationsList()
         //this.fillConversationViewWithUserData()

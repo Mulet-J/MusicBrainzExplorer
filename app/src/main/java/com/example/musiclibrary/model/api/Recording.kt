@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Recording(
     @SerializedName("first-release-date") val firstReleaseDate: String?,
@@ -12,4 +13,4 @@ data class Recording(
     val title: String?,
     val id: String?,
     val video: Boolean?,
-)
+) : Serializable

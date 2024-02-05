@@ -124,7 +124,7 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
                 Log.d("artistClicked", "you have clicked!!!!")
 
                 val intent = Intent(this, ArtistDetailsActivity::class.java)
-                intent.putExtra("artist", data.artistData.name)
+                intent.putExtra("artist", data.artistData)
                 startActivity(intent)
             }
             is RecordingDto ->{

@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Track(
     val number: String?,
@@ -10,4 +11,4 @@ data class Track(
     val recording: Recording?,
     val id: String?,
     val length: Int?,
-)
+) : Serializable
