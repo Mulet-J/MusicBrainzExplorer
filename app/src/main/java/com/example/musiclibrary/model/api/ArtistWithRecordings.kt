@@ -8,6 +8,6 @@ data class ArtistWithRecordings(
     val ipis: List<String>,
     @SerializedName("sort-name") val sortName: String?,
     @SerializedName("end-area") val endArea: String?,
-val id: String,
-val recordings: List<Recording>
+    val id: String,
+    val recordings: List<Recording>
 ): Serializable

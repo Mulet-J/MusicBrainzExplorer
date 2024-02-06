@@ -10,6 +10,7 @@ import com.example.musiclibrary.R
 import com.example.musiclibrary.model.ArtistDto
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.RecordingDto
+import com.example.musiclibrary.model.ReleaseGroupDto
 
 class MusicDataAdapter (
     private val dataList: List<DataDto>,
@@ -28,7 +29,9 @@ class MusicDataAdapter (
       return when(dataList[position]) {
         is ArtistDto -> 1
           //default RecordingDto
-        else -> 2
+        is RecordingDto -> 2
+        is ReleaseGroupDto -> 3
+       //   else -> 1
         }
     }
         override fun onBindViewHolder(holder: MusicDataCellViewHolder, position: Int) {
@@ -42,13 +45,17 @@ class MusicDataAdapter (
                         onClickHandler.displayConversation(item)
                     }
                 }
-                else ->  {
+                2 ->  {
                     holder.userNameTv.text = (item as RecordingDto).recordingData.title
 //            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
 
                     holder.itemView.setOnClickListener {
                         onClickHandler.displayConversation(item)
                     }
+                }
+                3->{
+                    holder.userNameTv.text = (item as ReleaseGroupDto).releaseGroupData.title
+                    holder.lastMessageTv.text = (item as ReleaseGroupDto).releaseGroupData.firstReleaseDate!!.substring(0,4)
                 }
             }
 

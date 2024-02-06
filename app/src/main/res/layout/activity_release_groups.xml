@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.ReleaseGroupsActivity">
+
+    <TextView
+        android:id="@+id/artist_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="75sp"
+        android:textStyle="bold"
+        tools:text="Nirvana"
+        android:textColor="@color/black"
+        android:textAlignment="center"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ReleaseGroupsActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/release_groups_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/release_group_item_layout"
+            tools:itemCount="5"/>
+
+    </FrameLayout>
+
+</LinearLayout>

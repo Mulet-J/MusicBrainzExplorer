@@ -22,4 +22,7 @@ data class Artist(
     val gender: String?,
     val ipis: List<String>,
     @SerializedName("end-area") val endArea: String?,
+    val recordings: List<Recording>,
+    @SerializedName("release-groups") val releaseGroups: List<ReleaseGroup>,
+    val releases: List<Release>,
     ) : Serializable

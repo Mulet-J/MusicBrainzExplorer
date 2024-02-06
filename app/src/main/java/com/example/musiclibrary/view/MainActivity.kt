@@ -21,6 +21,7 @@ import com.example.musiclibrary.di.injectModuleDependencies
 import com.example.musiclibrary.model.ArtistDto
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.RecordingDto
+import com.example.musiclibrary.model.ReleaseGroupDto
 import com.example.musiclibrary.ui.theme.MusicLibraryTheme
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
 import com.example.musiclibrary.view.adapters.OnConversationClicked
@@ -36,23 +37,14 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_layout)
-//        setContent {
-//            MusicLibraryTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    Greeting("Android")
-//                }
-//            }
-//        }
+
         injectModuleDependencies(this@MainActivity)
 
-        var textView: TextView = findViewById(R.id.textViewTest)
-        var searchButton: Button = findViewById(R.id.querySearchBtn)
-        var textField : EditText = findViewById(R.id.queryInputET)
-        var filter: Spinner = findViewById(R.id.queryInputTypeSp)
+        val searchButton: Button = findViewById(R.id.querySearchBtn)
+        val textField : EditText = findViewById(R.id.queryInputET)
+        val filter: Spinner = findViewById(R.id.queryInputTypeSp)
+
+        musicViewModel.getCovert()
 
         val adapter = ArrayAdapter.createFromResource(
             this,
@@ -122,7 +114,7 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
             is ArtistDto ->{
                 Log.d("artistClicked", "you have clicked!!!!")
 
-                val intent = Intent(this, ArtistDetailsActivity::class.java)
+                val intent = Intent(this, ReleaseGroupsActivity::class.java)
                 intent.putExtra("artist", data.artistData)
                 startActivity(intent)
             }
@@ -134,6 +126,9 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
                 //).also {
                     //this.musicViewModel.currentArtistId = data.artistData.id
                    // startActivity(it)
+            }
+            is ReleaseGroupDto -> {
+
             }
         }
     }
