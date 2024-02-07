@@ -18,11 +18,13 @@ internal val remoteModule = module {
     }
     single { createOkHttpClient() }
 
+    /*
     single(
         named(apiCovertArchiveClient)
     ) { 
         createRetrofit(get(), covertArchiveApiUrl)
     }
+     */
 }
 
 private fun createOkHttpClient(): OkHttpClient {

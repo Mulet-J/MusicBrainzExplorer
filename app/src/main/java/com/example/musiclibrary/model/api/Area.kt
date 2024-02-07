@@ -11,5 +11,5 @@ data class Area(
     @SerializedName("sort-name") val sortName: String?,
     @SerializedName("life-span") val lifeSpan: LifeSpan?,
     val disambiguation: String?,
-    val aliases: List<Alias>,
+    val aliases: List<Alias>?,
 ) : Serializable

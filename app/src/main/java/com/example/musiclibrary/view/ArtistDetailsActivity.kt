@@ -24,7 +24,6 @@ class ArtistDetailsActivity : ComponentActivity(), OnConversationClicked {
     //private lateinit var messageEditText: EditText
     private lateinit var userNameTextView: TextView
     private lateinit var recordingsListRv: RecyclerView
-
     //private lateinit var backButtonImageButton: ImageButton
     //private lateinit var userProfilePictureImageView: ImageView
     //private lateinit var conversationAdapter: MusicDataAdapter

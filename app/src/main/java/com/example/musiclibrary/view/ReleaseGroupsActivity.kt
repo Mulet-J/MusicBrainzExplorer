@@ -1,6 +1,7 @@
 package com.example.musiclibrary.view
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.compose.setContent
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -12,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musiclibrary.R
-import com.example.musiclibrary.databinding.ActivityReleaseGroupsBinding
 import com.example.musiclibrary.model.ArtistDto
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.ReleaseGroupDto
@@ -26,14 +26,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ReleaseGroupsActivity : AppCompatActivity(), OnConversationClicked {
 
     private val releaseGroupsViewModel: ReleaseGroupsViewModel by viewModel()
+    private lateinit var userNameTextView: TextView
 
     private lateinit var releaseGroupsRv: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_release_groups)
+        this.userNameTextView = findViewById(R.id.artist_name)
+
         val intent = this.intent
         val valeur = intent.getSerializableExtra("artist") as Artist
+        this.userNameTextView.text = valeur.name
         getReleaseGroupsByArtist(valeur)
         this.releaseGroupsViewModel.releaseGroupList.observe(this@ReleaseGroupsActivity){
             value ->

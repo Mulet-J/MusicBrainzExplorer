@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CovertArchiveApiService {
-    @GET("release/{release_id}/front-250")
-    fun getReleaseCover(@Path("release_id") releaseId: String): Flowable<ResponseBody>
+    //@GET("release/{release_id}/front-250")
+    //fun getReleaseCover(@Path("release_id") releaseId: String): Flowable<ResponseBody>
 }

@@ -13,9 +13,9 @@ import org.koin.dsl.module
 internal val coreModules = module {
     single { ArtistRepository(get()) }
     single { MusicRepository(get()) }
-    single { CovertArtRepository(get()) }
+    //single { CovertArtRepository(get()) }
 
-    single { MusicViewModel(get(),get(), get()) }
+    single { MusicViewModel(get(),get()) }
     single { ReleaseGroupsViewModel(get()) }
 
     single {
@@ -25,6 +25,7 @@ internal val coreModules = module {
             )
         )
     }
+    /*
     single {
         createWebService<CovertArchiveApiService>(
             get(
@@ -32,4 +33,5 @@ internal val coreModules = module {
             )
         )
     }
+    */
 }

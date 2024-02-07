@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.kotlin.addTo
 class MusicViewModel(
     private val artistRepository: ArtistRepository,
     private val recordingRepository: MusicRepository,
-    private val covertArtRepository: CovertArtRepository,
+    //private val covertArtRepository: CovertArtRepository,
 ): ViewModel() {
     private val disposeBag = CompositeDisposable()
     val artistsList: MutableLiveData<List<Artist>> = MutableLiveData()
@@ -33,6 +33,7 @@ class MusicViewModel(
         return when (queryType) {
             "Artiste" -> this.artistRepository.searchArtist(input).subscribe({ result ->
                 this.artistsList.postValue(result.artists)
+                //Log.d("SEARCH",result.toString())
             }, { _ ->
                 Log.d("abazerazerazer", "aezzfdqsd")
             }).addTo(disposeBag)
@@ -57,9 +58,11 @@ class MusicViewModel(
 
     fun getCovert(){
         //TODO
+        /*
         this.covertArtRepository.getCovertFromMBID("7d166a44-cfb5-4b08-aacb-6863bbe677d6").subscribe({
             result ->
             val a = 1
         })
+         */
     }
 }

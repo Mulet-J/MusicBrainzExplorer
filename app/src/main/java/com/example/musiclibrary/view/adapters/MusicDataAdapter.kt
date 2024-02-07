@@ -54,6 +54,7 @@ class MusicDataAdapter (
                     }
                 }
                 3->{
+                    //holder.artistName.text = (item as ArtistDto).artistData.name
                     holder.userNameTv.text = (item as ReleaseGroupDto).releaseGroupData.title
                     holder.lastMessageTv.text = (item as ReleaseGroupDto).releaseGroupData.firstReleaseDate!!.substring(0,4)
                 }
@@ -73,12 +74,14 @@ class MusicDataAdapter (
             var userProfilePictureIv: ImageView
             var userNameTv: TextView
             var lastMessageTv: TextView
-
+            //var artistName: TextView
 
             init {
+
                 userProfilePictureIv = itemView.findViewById(R.id.user_picture_iv)
                 userNameTv = itemView.findViewById(R.id.user_name_tv)
                 lastMessageTv = itemView.findViewById(R.id.last_message_tv)
+                //artistName = itemView.findViewById(R.id.artist_name)
             }
         }
     }

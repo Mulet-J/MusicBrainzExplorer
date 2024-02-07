@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class ArtistWithRecordings(
-    val type: String,
-    val ipis: List<String>,
+    val type: String?,
+    val ipis: List<String>?,
     @SerializedName("sort-name") val sortName: String?,
-    @SerializedName("end-area") val endArea: String?,
-    val id: String,
-    val recordings: List<Recording>
+    @SerializedName("end-area") val endArea: EndArea?,
+    val id: String?,
+    val recordings: List<Recording>?
 ): Serializable
