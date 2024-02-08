@@ -16,8 +16,8 @@ class ArtistRepository(
         return musicDataApiService.getArtistByGuid(guid)
     }
 
-    fun getArtistByGuid2(guid: String): Flowable<Artist> {
-        return musicDataApiService.getArtistReleaseGroups(guid)
+    fun getArtistAndItsReleaseGroupsByGuid(guid: String): Flowable<Artist> {
+        return musicDataApiService.getArtistAndItsReleaseGroups(guid)
     }
 
     fun searchArtist(input:String): Flowable<ArtistsData>{

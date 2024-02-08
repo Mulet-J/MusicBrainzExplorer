@@ -29,7 +29,7 @@ interface MusicDataApiService {
     fun getArtistRecordings(@Path("artist_id") artistId: String):Flowable<ArtistWithRecordings>
 
      @GET("artist/{artist_id}/?inc=release-groups+releases&fmt=json")
-    fun getArtistReleaseGroups(@Path("artist_id") artistId: String): Flowable<Artist>
+    fun getArtistAndItsReleaseGroups(@Path("artist_id") artistId: String): Flowable<Artist>
 
     @GET("release-group/{release_group_id}/&?fmt=json&inc=releases")
     fun getAllReleases(@Path("release_group_id") releaseGroupId: String): Flowable<List<Release>>
