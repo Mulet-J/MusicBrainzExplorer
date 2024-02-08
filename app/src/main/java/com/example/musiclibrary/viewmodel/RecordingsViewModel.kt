@@ -16,22 +16,22 @@ class RecordingsViewModel(
 ): ViewModel() {
 
     private val disposeBag = CompositeDisposable()
-    val releaseGroupList : MutableLiveData<List<Release>> = MutableLiveData()
-    val release: MutableLiveData<Release> = MutableLiveData()
+    //val releaseGroupList : MutableLiveData<List<Release>> = MutableLiveData()
+    val releases: MutableLiveData<List<Release>> = MutableLiveData()
     val trackList: MutableLiveData<List<Track>> = MutableLiveData()
 
 
     fun getAllTrackByRelease(releaseId: String): Disposable{
         return this.musicRepository.getAllTracksByRelease(releaseId).subscribe({
-            result -> this.trackList.postValue(result)
+            result -> this.trackList.postValue(result.media[0].tracks)
         },{ error->
             Log.d("Error in function getAllTrackByRelease ", error.message?:"error")
         }).addTo(disposeBag)
     }
     fun getAllreleasesByReleaseGroup(releaseGroupId: String): Disposable {
         //val releaseGroupId = releaseGroup.id!!
-        return this.musicRepository.getAllReleaseByReleaseGroups(releaseGroupId).subscribe({
-                result -> this.releaseGroupList.postValue(result)
+        return this.musicRepository.getAllReleasesByReleaseGroups(releaseGroupId).subscribe({
+                result -> this.releases.postValue(result.releases)
         }, { error ->
             Log.d("Error in function getAllreleasesByReleaseGroup ", error.message?:"error")
         }).addTo(disposeBag)

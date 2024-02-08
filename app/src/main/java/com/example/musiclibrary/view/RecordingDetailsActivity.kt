@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musiclibrary.R
 import com.example.musiclibrary.model.DataDto
+import com.example.musiclibrary.model.ReleaseGroupDto
 import com.example.musiclibrary.model.TrackDto
 import com.example.musiclibrary.model.api.ReleaseGroup
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
@@ -34,8 +35,8 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
         this.releaseGroupId = releaseGroup.id
         this.releaseGroupId?.let { getAllReleaseByReleaseGroup(it) }
 
-        this.recordingsViewModel.releaseGroupList.observe(this@RecordingDetailsActivity){
-            value -> val releaseToDisplay = value[0]
+        this.recordingsViewModel.releases.observe(this@RecordingDetailsActivity){
+            value -> val releaseToDisplay = value.get(0)
             releaseToDisplay.id?.let { getAllTracksByRelease(it) }
         }
 

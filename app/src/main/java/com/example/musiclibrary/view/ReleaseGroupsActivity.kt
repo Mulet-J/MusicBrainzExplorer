@@ -49,10 +49,11 @@ class ReleaseGroupsActivity : AppCompatActivity(), OnCellClicked {
     }
 
     override fun displayCellDetails(data: DataDto) {
+
         val releaseGroup= data as ReleaseGroupDto
-        val intent = Intent(this, RecordingDetailsActivity::class.java)
-        intent.putExtra("release-group", releaseGroup.releaseGroupData)
-        startActivity(intent)
+        val intentReleases = Intent(this, RecordingDetailsActivity::class.java)
+        intentReleases.putExtra("release-group", releaseGroup.releaseGroupData)
+        startActivity(intentReleases)
     }
 }
 

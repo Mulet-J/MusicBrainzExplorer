@@ -65,11 +65,18 @@ class MusicDataAdapter (
                     //holder.artistName.text = (item as ArtistDto).artistData.name
                     holder.userNameTv.text = (item as ReleaseGroupDto).releaseGroupData.title
                     holder.lastMessageTv.text = (item as ReleaseGroupDto).releaseGroupData.firstReleaseDate!!.substring(0,4)
-                    onClickHandler.displayCellDetails(item)
+                    holder.itemView.setOnClickListener {
+                        onClickHandler.displayCellDetails(item)
+                    }
                 }
                 TRACK_TYPE->{
-                    holder.userNameTv.text = (item as TrackDto).trackData.title
-                    holder.lastMessageTv.text = (item as TrackDto).trackData.position.toString()
+                    val track = (item as TrackDto).trackData
+                    val textToDisplay = track.position.toString()+" - "+track.title
+                    val titleDurationMinutes = track.length?.div(1000)?.div(60)
+                    val titleDurationSeconds = track.length?.div(1000)?.mod(60)
+                    val titleDuration = titleDurationMinutes.toString()+":"+ String.format("%02d",titleDurationSeconds)
+                    holder.userNameTv.text = textToDisplay
+                    holder.lastMessageTv.text = titleDuration
                 }
             }
         }

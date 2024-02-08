@@ -2,6 +2,7 @@ package com.example.musiclibrary.model
 
 import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.model.api.Recording
+import com.example.musiclibrary.model.api.Release
 import com.example.musiclibrary.model.api.ReleaseGroup
 import com.example.musiclibrary.model.api.Track
 

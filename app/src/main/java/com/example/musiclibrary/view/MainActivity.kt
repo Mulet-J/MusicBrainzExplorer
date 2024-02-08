@@ -111,12 +111,12 @@ class MainActivity : ComponentActivity(), OnCellClicked{
                 startActivity(intent)
             }
             is RecordingDto ->{
-                //Intent(
-                   // this,
-                   // RecordingDetailsActivity::class.java
-                //).also {
-                    //this.musicViewModel.currentArtistId = data.artistData.id
-                   // startActivity(it)
+                /*
+                val release = data.recordingData.releases
+                val intentReleases = Intent(this, RecordingDetailsActivity::class.java)
+                intentReleases.putExtra("release-group", release)
+                startActivity(intentReleases)
+                 */
             }
             is ReleaseGroupDto -> {
                 //Not implemented in main filter
