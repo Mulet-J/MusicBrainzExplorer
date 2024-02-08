@@ -7,52 +7,59 @@ import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.model.api.Recording
 import com.example.musiclibrary.repositories.ArtistRepository
 import com.example.musiclibrary.repositories.CovertArtRepository
-import com.example.musiclibrary.repositories.MusicRepository
+import com.example.musiclibrary.repositories.RecordRepository
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.addTo
 
 class MusicViewModel(
     private val artistRepository: ArtistRepository,
-    private val recordingRepository: MusicRepository,
+    private val recordingRepository: RecordRepository,
     //private val covertArtRepository: CovertArtRepository,
 ): ViewModel() {
     private val disposeBag = CompositeDisposable()
     val artistsList: MutableLiveData<List<Artist>> = MutableLiveData()
     val recordingsList: MutableLiveData<List<Recording>> = MutableLiveData()
-    fun getSomeMusic(callback : ()->Unit): Disposable {
+
+    companion object {
+        private const val ARTIST_QUERY = "Artiste"
+        private const val RECORD_QUERY = "Musique"
+    }
+
+    fun getSomeMusic(): Disposable {
         return this.artistRepository.getArtistByGuid("f27ec8db-af05-4f36-916e-3d57f91ecf5e").subscribe({
                 music -> this.artistsList.postValue(listOf(music))
-            callback()
-        },{
-                _-> Log.d("abazerazerazer", "aezzfdqsd")
+        },{ error ->
+            Log.d("Error in function getSomeMusic", error.message ?: "error Artist Query")
         }).addTo(disposeBag)
     }
 
     fun search(input: String, queryType: String) : Disposable{
         return when (queryType) {
-            "Artiste" -> this.artistRepository.searchArtist(input).subscribe({ result ->
+            ARTIST_QUERY -> this.artistRepository.searchArtist(input).subscribe({ result ->
                 this.artistsList.postValue(result.artists)
-                //Log.d("SEARCH",result.toString())
-            }, { _ ->
-                Log.d("abazerazerazer", "aezzfdqsd")
+            }, { error ->
+                Log.d("Error in function search", error.message ?: "error Artist Query")
             }).addTo(disposeBag)
 
-            // default =  "Musique"
-            else -> this.recordingRepository.searchRecord(input).subscribe({ result ->
+            RECORD_QUERY -> this.recordingRepository.searchRecord(input).subscribe({ result ->
                 this.recordingsList.postValue(result.recordings)
-            }, { _ ->
-                Log.d("abazerazerazer", "aezzfdqsd")
+            }, { error ->
+                Log.d("Error in function search", error.message ?: "error Record Query")
             }).addTo(disposeBag)
+
+            //Cannot happened as QueryType is init
+            else -> {
+                disposeBag
+            }
         }
     }
-
     fun getRecordingsByArtist(artist: Artist):Disposable{
         val artistId = artist.id!!
         return this.recordingRepository.searchRecordsByArtist(artistId).subscribe({
                 result -> this.recordingsList.postValue(result.recordings)
-        }, { _ ->
-            Log.d("abazerazerazer", "aezzfdqsd")
+        }, { error ->
+            Log.d("Error in function getRecordingsByArtist", error.message ?: "error")
         }).addTo(disposeBag)
     }
 

@@ -31,7 +31,7 @@
                 android:src="@mipmap/ic_launcher"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:contentDescription="Osef">
+                android:contentDescription="@string/image_of_a_release_group">
             </ImageView>
         </androidx.cardview.widget.CardView>
 
@@ -39,7 +39,7 @@
             android:id="@+id/user_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/user_profile_picture_card"
