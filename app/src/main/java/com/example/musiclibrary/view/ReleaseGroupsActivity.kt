@@ -2,7 +2,9 @@ package com.example.musiclibrary.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,16 +17,20 @@ import com.example.musiclibrary.view.adapters.OnCellClicked
 import com.example.musiclibrary.viewmodel.ReleaseGroupsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ReleaseGroupsActivity : AppCompatActivity(), OnCellClicked {
+class ReleaseGroupsActivity : ComponentActivity(), OnCellClicked {
 
     private val releaseGroupsViewModel: ReleaseGroupsViewModel by viewModel()
     private lateinit var userNameTv: TextView
     private lateinit var releaseGroupsRv: RecyclerView
-
+    private lateinit var backBtn: ImageButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_release_groups)
         this.userNameTv = findViewById(R.id.artist_name_tv)
+        this.backBtn = findViewById(R.id.back_button)
+        this.backBtn.setOnClickListener{
+            finish()
+        }
 
         val intent = this.intent
         val artist = intent.getSerializableExtra("artist") as Artist

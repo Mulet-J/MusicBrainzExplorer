@@ -10,4 +10,6 @@
     <string name="random_text">placeholder text</string>
     <string name="image_of_a_release_group">image of a release group</string>
     <string name="title">Title</string>
+    <string name="return_value">Retour</string>
+    <string name="back_button_to_quit_the_current_activity">Bouton permettant de quitter le menu actuel</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.musiclibrary.view
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
@@ -24,13 +25,17 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
     private lateinit var albumTitleTv: TextView
     private var releaseGroupId : String? = ""
     private var releaseId: String? = ""
+    private lateinit var backBtn: ImageButton;
     private lateinit var recordingsListRv: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recordings_details_layout)
         this.albumTitleTv = findViewById(R.id.album_name_tv)
-
+        this.backBtn = findViewById(R.id.back_button)
+        this.backBtn.setOnClickListener{
+            finish()
+        }
         val intent = this.intent
         val type = intent.getStringExtra("type")
         when(type){
