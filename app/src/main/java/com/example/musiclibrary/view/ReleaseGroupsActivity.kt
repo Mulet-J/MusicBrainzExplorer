@@ -1,5 +1,6 @@
 package com.example.musiclibrary.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -48,7 +49,10 @@ class ReleaseGroupsActivity : AppCompatActivity(), OnCellClicked {
     }
 
     override fun displayCellDetails(data: DataDto) {
-        TODO("Not yet implemented")
+        val releaseGroup= data as ReleaseGroupDto
+        val intent = Intent(this, RecordingDetailsActivity::class.java)
+        intent.putExtra("release-group", releaseGroup.releaseGroupData)
+        startActivity(intent)
     }
 }
 

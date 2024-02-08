@@ -3,6 +3,7 @@ package com.example.musiclibrary.network.services
 import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.model.api.ArtistWithRecordings
 import com.example.musiclibrary.model.api.Release
+import com.example.musiclibrary.model.api.Track
 import com.example.musiclibrary.model.musicBrainzData.ArtistsData
 import com.example.musiclibrary.model.musicBrainzData.RecordingsData
 import io.reactivex.rxjava3.core.Flowable
@@ -34,7 +35,7 @@ interface MusicDataApiService {
     @GET("release-group/{release_group_id}/&?fmt=json&inc=releases")
     fun getAllReleases(@Path("release_group_id") releaseGroupId: String): Flowable<List<Release>>
 
-    //@GET("release/{release_id}/&?fmt=json&inc=recordings")
-    //fun getAllRecordsByRelease(@Path("release_id") releaseId: String): Flowable<>
+    @GET("release/{release_id}/&?fmt=json&inc=recordings")
+    fun getAllRecordsByRelease(@Path("release_id") releaseId: String): Flowable<List<Track>>
 
 }

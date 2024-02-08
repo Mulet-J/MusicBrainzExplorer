@@ -22,6 +22,9 @@
             android:name=".view.ArtistDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".view.RecordingDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.MainActivity"
             android:exported="true"
             android:label="@string/app_name">

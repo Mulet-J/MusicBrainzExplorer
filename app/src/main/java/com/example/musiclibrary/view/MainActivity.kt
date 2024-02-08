@@ -120,6 +120,9 @@ class MainActivity : ComponentActivity(), OnCellClicked{
             }
             is ReleaseGroupDto -> {
                 //Not implemented in main filter
+
+            }else->{
+
             }
         }
     }
