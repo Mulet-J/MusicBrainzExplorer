@@ -11,6 +11,7 @@ import com.example.musiclibrary.R
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.ReleaseGroupDto
 import com.example.musiclibrary.model.TrackDto
+import com.example.musiclibrary.model.api.Release
 import com.example.musiclibrary.model.api.ReleaseGroup
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
 import com.example.musiclibrary.view.adapters.OnCellClicked
@@ -22,6 +23,7 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
     private val recordingsViewModel: RecordingsViewModel by viewModel()
     private lateinit var albumTitleTv: TextView
     private var releaseGroupId : String? = ""
+    private var releaseId: String? = ""
     private lateinit var recordingsListRv: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +32,23 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
         this.albumTitleTv = findViewById(R.id.album_name_tv)
 
         val intent = this.intent
-        val releaseGroup = intent.getSerializableExtra("release-group") as ReleaseGroup
-        this.albumTitleTv.text = releaseGroup.title
-        this.releaseGroupId = releaseGroup.id
-        this.releaseGroupId?.let { getAllReleaseByReleaseGroup(it) }
+        val type = intent.getStringExtra("type")
+        when(type){
+            "ReleaseGroupDto" -> {
+                val releaseGroup = intent.getSerializableExtra("release-group") as ReleaseGroup
+                this.albumTitleTv.text = releaseGroup.title
+                this.releaseGroupId = releaseGroup.id
+                this.releaseGroupId?.let { getAllReleaseByReleaseGroup(it) }
+            }
+            "Release"->{
+                val release = intent.getSerializableExtra("releases") as List<Release>
+                val releaseToDisplay = release[0]
+                this.albumTitleTv.text = releaseToDisplay.title
+                this.releaseId = releaseToDisplay.id
+                this.releaseId?.let { getAllTracksByRelease(it) }
+            }
+
+        }
 
         this.recordingsViewModel.releases.observe(this@RecordingDetailsActivity){
             value -> val releaseToDisplay = value.get(0)

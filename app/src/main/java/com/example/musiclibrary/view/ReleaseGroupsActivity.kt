@@ -52,6 +52,7 @@ class ReleaseGroupsActivity : AppCompatActivity(), OnCellClicked {
 
         val releaseGroup= data as ReleaseGroupDto
         val intentReleases = Intent(this, RecordingDetailsActivity::class.java)
+        intentReleases.putExtra("type", "ReleaseGroupDto")
         intentReleases.putExtra("release-group", releaseGroup.releaseGroupData)
         startActivity(intentReleases)
     }

@@ -111,12 +111,13 @@ class MainActivity : ComponentActivity(), OnCellClicked{
                 startActivity(intent)
             }
             is RecordingDto ->{
-                /*
+
                 val release = data.recordingData.releases
                 val intentReleases = Intent(this, RecordingDetailsActivity::class.java)
-                intentReleases.putExtra("release-group", release)
+                intentReleases.putExtra("type", "Release")
+                intentReleases.putExtra("releases", release)
                 startActivity(intentReleases)
-                 */
+
             }
             is ReleaseGroupDto -> {
                 //Not implemented in main filter

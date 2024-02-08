@@ -46,7 +46,7 @@ class MusicDataAdapter (
             val item = this.dataList[position]
             when(holder.itemViewType) {
              ARTIST_TYPE-> {
-                    holder.userNameTv.text = (item as ArtistDto).artistData.name
+                    holder.titleTv.text = (item as ArtistDto).artistData.name
 //            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
 
                     holder.itemView.setOnClickListener {
@@ -54,17 +54,19 @@ class MusicDataAdapter (
                     }
                 }
                 RECORD_TYPE ->  {
-                    holder.userNameTv.text = (item as RecordingDto).recordingData.title
-//            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
+                    val record = (item as RecordingDto).recordingData
+
+                    holder.titleTv.text = record.title
+                    holder.additionalInfoTv.text = record.releases?.get(0)?.title
 
                     holder.itemView.setOnClickListener {
                         onClickHandler.displayCellDetails(item)
                     }
                 }
                 RELEASE_GROUP_TYPE->{
-                    //holder.artistName.text = (item as ArtistDto).artistData.name
-                    holder.userNameTv.text = (item as ReleaseGroupDto).releaseGroupData.title
-                    holder.lastMessageTv.text = (item as ReleaseGroupDto).releaseGroupData.firstReleaseDate!!.substring(0,4)
+                    val releaseGroup = (item as ReleaseGroupDto).releaseGroupData
+                    holder.titleTv.text =  releaseGroup.title
+                    holder.additionalInfoTv.text = releaseGroup.firstReleaseDate!!.substring(0,4)
                     holder.itemView.setOnClickListener {
                         onClickHandler.displayCellDetails(item)
                     }
@@ -75,20 +77,20 @@ class MusicDataAdapter (
                     val titleDurationMinutes = track.length?.div(1000)?.div(60)
                     val titleDurationSeconds = track.length?.div(1000)?.mod(60)
                     val titleDuration = titleDurationMinutes.toString()+":"+ String.format("%02d",titleDurationSeconds)
-                    holder.userNameTv.text = textToDisplay
-                    holder.lastMessageTv.text = titleDuration
+                    holder.titleTv.text = textToDisplay
+                    holder.additionalInfoTv.text = titleDuration
                 }
             }
         }
 
     inner class MusicDataCellViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var userProfilePictureIv: ImageView
-        var userNameTv: TextView
-        var lastMessageTv: TextView
+        var titleTv: TextView
+        var additionalInfoTv: TextView
         init {
             userProfilePictureIv = itemView.findViewById(R.id.item_picture_iv)
-            userNameTv = itemView.findViewById(R.id.user_name_tv)
-            lastMessageTv = itemView.findViewById(R.id.last_message_tv)
+            titleTv = itemView.findViewById(R.id.title_tv)
+            additionalInfoTv = itemView.findViewById(R.id.additional_info_tv)
         }
     }
     }
