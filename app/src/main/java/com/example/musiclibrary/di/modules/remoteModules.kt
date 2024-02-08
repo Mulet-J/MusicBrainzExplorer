@@ -14,9 +14,17 @@ internal val remoteModule = module {
     single(
         named(apiMusicBrainzClient)
     ) {
-        createRetrofit(get(), apiUrl)
+        createRetrofit(get(), musicBrainzApiUrl)
     }
     single { createOkHttpClient() }
+
+    /*
+    single(
+        named(apiCovertArchiveClient)
+    ) { 
+        createRetrofit(get(), covertArchiveApiUrl)
+    }
+     */
 }
 
 private fun createOkHttpClient(): OkHttpClient {
@@ -56,6 +64,8 @@ inline fun <reified T> createWebService(retrofit: Retrofit): T {
     return retrofit.create(T::class.java)
 }
 
-const val apiUrl: String = "https://musicbrainz.org/ws/2/"
+const val musicBrainzApiUrl: String = "https://musicbrainz.org/ws/2/"
+const val covertArchiveApiUrl: String = "https://coverartarchive.org/"
 const val apiMusicBrainzClient: String = "apiMusicBrainzClient"
+const val apiCovertArchiveClient: String = "apiCovertArchiveClient"
 const val userAgent = "androidMusicBrainz/1.0"

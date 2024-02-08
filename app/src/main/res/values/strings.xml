@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MusicLibrary</string>
+    <string name="search">Rechercher</string>
+    <string name="query_placeholder">Tappez votre recherche ici</string>
+    <string name="coucou">Coucou</string>
+    <string name="artist_name_formatted_display">%1$s %2$s</string>
+    <string name="title_activity_release_groups">Blabla</string>
 </resources>

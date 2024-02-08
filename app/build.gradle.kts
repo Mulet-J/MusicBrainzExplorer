@@ -38,6 +38,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -55,6 +56,9 @@ dependencies {
 
 
     implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // HTTP
     implementation("com.google.code.gson:gson:2.9.0") // Serialization to and from JSON
@@ -89,4 +93,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

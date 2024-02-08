@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Relation(
     val artist: Artist?,
@@ -16,4 +17,4 @@ data class Relation(
     val ended: Boolean?,
     @SerializedName("type-id") val typeId: String?,
     val end: String?,
-)
+) : Serializable

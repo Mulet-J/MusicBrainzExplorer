@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Event(
     @SerializedName("type-id") val typeId: String?,
@@ -15,4 +16,4 @@ data class Event(
     val relations: ArrayList<Relation>,
     val name: String?,
 
-    )
+    ) : Serializable

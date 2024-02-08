@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Release(
     @SerializedName("packaging-id") val packagingId: String?,
@@ -21,4 +22,4 @@ data class Release(
     @SerializedName("status-id") val statusId: String?,
     val title: String?,
     @SerializedName("label-info") val labelInfo: ArrayList<LabelInfo>,
-)
+) : Serializable

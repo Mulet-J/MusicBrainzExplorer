@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Instrument(
     val name: String?,
@@ -10,4 +11,4 @@ data class Instrument(
     val type: String?,
     val aliases: ArrayList<Alias>,
     @SerializedName("type-id") val typeId: String?,
-)
+) : Serializable

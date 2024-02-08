@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Area(
     val id: String?,
@@ -10,5 +11,5 @@ data class Area(
     @SerializedName("sort-name") val sortName: String?,
     @SerializedName("life-span") val lifeSpan: LifeSpan?,
     val disambiguation: String?,
-    val aliases: List<Alias>,
-)
+    val aliases: List<Alias>?,
+) : Serializable

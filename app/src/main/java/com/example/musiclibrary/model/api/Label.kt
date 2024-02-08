@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Label(
     @SerializedName("type-id") val typeId: String?,
@@ -16,4 +17,4 @@ data class Label(
     @SerializedName("life-span") val lifeSpan: LifeSpan?,
     val name: String?,
     val disambiguation: String?,
-)
+) : Serializable

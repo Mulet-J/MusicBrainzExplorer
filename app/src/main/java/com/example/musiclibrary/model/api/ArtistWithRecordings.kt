@@ -3,11 +3,11 @@ package com.example.musiclibrary.model.api
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class BeginArea(
-    val id: String?,
+data class ArtistWithRecordings(
     val type: String?,
-    @SerializedName("type-id") val typeId: String?,
-    val name: String?,
+    val ipis: List<String>?,
     @SerializedName("sort-name") val sortName: String?,
-    @SerializedName("life-span") val lifeSpan: LifeSpan?,
-) : Serializable
+    @SerializedName("end-area") val endArea: EndArea?,
+    val id: String?,
+    val recordings: List<Recording>?
+): Serializable

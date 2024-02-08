@@ -1,6 +1,7 @@
 package com.example.musiclibrary.model.api
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Alias(
     @SerializedName("sort-name") val sortName: String?,
@@ -14,4 +15,4 @@ data class Alias(
     val ended: Boolean?,
     val begin: String?,
     val end: String?,
-)
+) : Serializable
