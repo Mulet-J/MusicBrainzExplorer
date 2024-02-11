@@ -10,7 +10,7 @@ data class Recording(
     val releases: ArrayList<Release>?,
     val disambiguation: String?,
     val length: Int?,
-    val title: String?,
+    val title: String,
     val id: String?,
     val video: Boolean?,
 ) : Serializable

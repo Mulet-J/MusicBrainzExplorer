@@ -14,7 +14,7 @@ import com.example.musiclibrary.model.ReleaseGroupDto
 import com.example.musiclibrary.model.TrackDto
 
 class MusicDataAdapter (
-    private val dataList: List<DataDto>,
+    private var dataList: List<DataDto>,
 //    private val recordingDataList: List<RecordingDto>,
     private val onClickHandler: OnCellClicked
     ): RecyclerView.Adapter<MusicDataAdapter.MusicDataCellViewHolder>() {
@@ -83,6 +83,10 @@ class MusicDataAdapter (
             }
         }
 
+    fun submitList(newList: List<DataDto>) {
+        this.dataList = newList
+        notifyDataSetChanged()
+    }
     inner class MusicDataCellViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var userProfilePictureIv: ImageView
         var titleTv: TextView

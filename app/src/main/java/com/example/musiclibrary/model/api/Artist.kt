@@ -8,7 +8,7 @@ data class Artist(
     val type: String?,
     @SerializedName("type-id") val typeId: String?,
     val score: Long?,
-    val name: String?,
+    val name: String,
     @SerializedName("sort-name") val sortName: String?,
     val country: String?,
     val area: Area?,

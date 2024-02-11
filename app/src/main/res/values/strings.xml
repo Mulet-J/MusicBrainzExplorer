@@ -12,4 +12,5 @@
     <string name="title">Title</string>
     <string name="return_value">Retour</string>
     <string name="back_button_to_quit_the_current_activity">Bouton permettant de quitter le menu actuel</string>
+    <string name="Search">Rechercher</string>
 </resources>
