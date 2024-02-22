@@ -2,6 +2,8 @@ package com.example.musiclibrary.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -92,12 +94,30 @@ class MainActivity : ComponentActivity(), OnCellClicked{
         }
 
         this.datasListRv = findViewById(R.id.data_list_rv)
+        val searchEditText: EditText = findViewById(R.id.filter_search_et)
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                musicViewModel.filterMusicList(charSequence.toString())
+            }
+
+            override fun afterTextChanged(editable: Editable?) {}
+        })
     }
 
     private fun setUpUsersConversationsList(conversations: List<DataDto>) {
         val musicDataAdapter = MusicDataAdapter(conversations, this)
         datasListRv.layoutManager = LinearLayoutManager( this)
         datasListRv.adapter = musicDataAdapter
+        this.musicViewModel.filteredArtistList.observe(this) { filteredList ->
+            val artistDto = filteredList.map { ArtistDto(it) }
+            musicDataAdapter.submitList(artistDto)
+        }
+        this.musicViewModel.filteredRecordingsList.observe(this) { filteredList ->
+            val recordDto = filteredList.map { RecordingDto(it) }
+            musicDataAdapter.submitList(recordDto)
+        }
     }
 
     private fun searchByFilter(input: String, queryType: String ){
@@ -111,15 +131,19 @@ class MainActivity : ComponentActivity(), OnCellClicked{
                 startActivity(intent)
             }
             is RecordingDto ->{
-                //Intent(
-                   // this,
-                   // RecordingDetailsActivity::class.java
-                //).also {
-                    //this.musicViewModel.currentArtistId = data.artistData.id
-                   // startActivity(it)
+
+                val release = data.recordingData.releases
+                val intentReleases = Intent(this, RecordingDetailsActivity::class.java)
+                intentReleases.putExtra("type", "Release")
+                intentReleases.putExtra("releases", release)
+                startActivity(intentReleases)
+
             }
             is ReleaseGroupDto -> {
                 //Not implemented in main filter
+
+            }else->{
+
             }
         }
     }

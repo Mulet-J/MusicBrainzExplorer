@@ -2,6 +2,7 @@ package com.example.musiclibrary.view
 
 //import com.example.musiclibrary.model.conversation_model.MessageData
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ class ArtistDetailsActivity : ComponentActivity(), OnCellClicked {
     //private lateinit var messageEditText: EditText
     private lateinit var userNameTv: TextView
     private lateinit var recordingsListRv: RecyclerView
+    private lateinit var backBtn: ImageButton
     //private lateinit var backButtonImageButton: ImageButton
     //private lateinit var userProfilePictureImageView: ImageView
     //private lateinit var conversationAdapter: MusicDataAdapter
@@ -35,6 +37,10 @@ class ArtistDetailsActivity : ComponentActivity(), OnCellClicked {
         // XML views linking to the Activity
         //this.messageEditText = findViewById(R.id.new_message_et)
         this.userNameTv = findViewById(R.id.user_complete_name_tv)
+        this.backBtn = findViewById(R.id.back_button)
+        this.backBtn.setOnClickListener{
+            finish()
+        }
         //this.backButtonImageButton = findViewById(R.id.back_button)
         //this.userProfilePictureImageView = findViewById(R.id.user_picture_iv)
 

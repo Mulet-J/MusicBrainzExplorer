@@ -1,6 +1,7 @@
 package com.example.musiclibrary.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.musiclibrary.model.api.Artist
@@ -20,6 +21,12 @@ class MusicViewModel(
     private val disposeBag = CompositeDisposable()
     val artistsList: MutableLiveData<List<Artist>> = MutableLiveData()
     val recordingsList: MutableLiveData<List<Recording>> = MutableLiveData()
+    var currentArtistList: MutableList<Artist> = mutableListOf()
+    var currentRecordingList: MutableList<Recording> = mutableListOf()
+    val filteredArtistList: LiveData<List<Artist>> get() = artistsList
+    val filteredRecordingsList: LiveData<List<Recording>> get() = recordingsList
+    var filter: String = ARTIST_QUERY
+
 
     companion object {
         private const val ARTIST_QUERY = "Artiste"
@@ -38,12 +45,16 @@ class MusicViewModel(
         return when (queryType) {
             ARTIST_QUERY -> this.artistRepository.searchArtist(input).subscribe({ result ->
                 this.artistsList.postValue(result.artists)
+                this.currentArtistList = result.artists.toMutableList()
+                this.filter = ARTIST_QUERY
             }, { error ->
                 Log.d("Error in function search", error.message ?: "error Artist Query")
             }).addTo(disposeBag)
 
             RECORD_QUERY -> this.recordingRepository.searchRecord(input).subscribe({ result ->
                 this.recordingsList.postValue(result.recordings)
+                this.currentRecordingList = result.recordings.toMutableList()
+                this.filter = RECORD_QUERY
             }, { error ->
                 Log.d("Error in function search", error.message ?: "error Record Query")
             }).addTo(disposeBag)
@@ -71,5 +82,24 @@ class MusicViewModel(
             val a = 1
         })
          */
+    }
+
+    fun filterMusicList(query: String) {
+        if (query != null) {
+            when(filter) {
+                ARTIST_QUERY -> {
+                    val filteredList = this.currentArtistList.filter { artist ->
+                        artist.name.contains(query, ignoreCase = true)
+                    }
+                    this.artistsList.value = filteredList
+                }
+                RECORD_QUERY -> {
+                    val filteredList = this.currentRecordingList.filter { recording ->
+                        recording.title.contains(query, ignoreCase = true)
+                    }
+                    this.recordingsList.value = filteredList
+                }
+            }
+        }
     }
 }
