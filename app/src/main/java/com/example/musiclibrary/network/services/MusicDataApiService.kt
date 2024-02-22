@@ -3,8 +3,11 @@ package com.example.musiclibrary.network.services
 import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.model.api.ArtistWithRecordings
 import com.example.musiclibrary.model.api.Release
+import com.example.musiclibrary.model.api.ReleaseGroup
+import com.example.musiclibrary.model.api.Track
 import com.example.musiclibrary.model.musicBrainzData.ArtistsData
 import com.example.musiclibrary.model.musicBrainzData.RecordingsData
+import com.example.musiclibrary.model.musicBrainzData.TracksData
 import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
@@ -29,12 +32,12 @@ interface MusicDataApiService {
     fun getArtistRecordings(@Path("artist_id") artistId: String):Flowable<ArtistWithRecordings>
 
      @GET("artist/{artist_id}/?inc=release-groups+releases&fmt=json")
-    fun getArtistReleaseGroups(@Path("artist_id") artistId: String): Flowable<Artist>
+    fun getArtistAndItsReleaseGroups(@Path("artist_id") artistId: String): Flowable<Artist>
 
     @GET("release-group/{release_group_id}/&?fmt=json&inc=releases")
-    fun getAllReleases(@Path("release_group_id") releaseGroupId: String): Flowable<List<Release>>
+    fun getAllReleases(@Path("release_group_id") releaseGroupId: String): Flowable<ReleaseGroup>
 
-    //@GET("release/{release_id}/&?fmt=json&inc=recordings")
-    //fun getAllRecordsByRelease(@Path("release_id") releaseId: String): Flowable<>
+    @GET("release/{release_id}/&?fmt=json&inc=recordings")
+    fun getAllRecordsByRelease(@Path("release_id") releaseId: String): Flowable<TracksData>
 
 }

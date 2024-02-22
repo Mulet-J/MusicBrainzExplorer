@@ -31,15 +31,15 @@
                 android:src="@mipmap/ic_launcher"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:contentDescription="@string/image_of_a_release_group">
+                android:contentDescription="Osef">
             </ImageView>
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/user_name_tv"
+            android:id="@+id/track_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/title"
+            android:text="Title"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/user_profile_picture_card"
@@ -47,7 +47,7 @@
             android:layout_marginStart="15dp"/>
 
         <TextView
-            android:id="@+id/last_message_tv"
+            android:id="@+id/release_year"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Year"
@@ -57,7 +57,20 @@
             android:textSize="12sp"
             android:textStyle="normal"
             app:layout_constraintLeft_toRightOf="@+id/user_profile_picture_card"
-            app:layout_constraintTop_toBottomOf="@+id/user_name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/track_title"
+            android:layout_marginStart="15dp"/>
+        <TextView
+            android:id="@+id/track_duration"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="XminX"
+            android:lines="1"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintLeft_toRightOf="@+id/release_year"
+            app:layout_constraintTop_toBottomOf="@+id/track_title"
             android:layout_marginStart="15dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

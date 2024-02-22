@@ -6,19 +6,19 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textViewTest"
+        android:id="@+id/application_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/coucou"
+        android:text="@string/application_name"
         android:textColor="@color/black"
         android:textSize="23sp"
         android:textStyle="bold"
         android:visibility="visible" />
 
     <EditText
-        android:id="@+id/queryInputET"
+        android:id="@+id/query_input_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/query_placeholder"
@@ -30,41 +30,39 @@
         android:orientation="horizontal">
 
         <Spinner
-            android:id="@+id/queryInputTypeSp"
+            android:id="@+id/query_input_type_sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:entries="@array/query_value"
             />
 
         <Button
-            android:id="@+id/querySearchBtn"
+            android:id="@+id/query_search_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/search"
             />
     </LinearLayout>
+    <EditText
+        android:id="@+id/filter_search_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Search"
+        />
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.MainActivity">
 
-<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--            android:id="@+id/swipe_to_refresh_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="4dp"-->
-<!--            android:layout_marginEnd="4dp"-->
-<!--            android:layout_marginTop="8dp">-->
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/datas_rv"
+                android:id="@+id/data_list_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_layout"
                 tools:itemCount="5"/>
 
-<!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
     </FrameLayout>
 
 </LinearLayout>

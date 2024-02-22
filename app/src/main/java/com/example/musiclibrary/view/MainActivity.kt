@@ -2,13 +2,14 @@ package com.example.musiclibrary.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,11 +25,11 @@ import com.example.musiclibrary.model.RecordingDto
 import com.example.musiclibrary.model.ReleaseGroupDto
 import com.example.musiclibrary.ui.theme.MusicLibraryTheme
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
-import com.example.musiclibrary.view.adapters.OnConversationClicked
+import com.example.musiclibrary.view.adapters.OnCellClicked
 import com.example.musiclibrary.viewmodel.MusicViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : ComponentActivity(), OnConversationClicked{
+class MainActivity : ComponentActivity(), OnCellClicked{
 
     private val musicViewModel : MusicViewModel by viewModel()
     private lateinit var datasListRv: RecyclerView
@@ -40,9 +41,9 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
 
         injectModuleDependencies(this@MainActivity)
 
-        val searchButton: Button = findViewById(R.id.querySearchBtn)
-        val textField : EditText = findViewById(R.id.queryInputET)
-        val filter: Spinner = findViewById(R.id.queryInputTypeSp)
+        val searchButton: Button = findViewById(R.id.query_search_btn)
+        val textField : EditText = findViewById(R.id.query_input_et)
+        val filter: Spinner = findViewById(R.id.query_input_type_sp)
 
         musicViewModel.getCovert()
 
@@ -66,10 +67,6 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
             ) {
                 // Récupérer la valeur sélectionnée
                 selectedValue = parentView.getItemAtPosition(position).toString()
-
-                // Faites quelque chose avec la valeur sélectionnée
-                // Par exemple, affichez-la dans la console
-                println("Selected Value: $selectedValue")
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>) {
@@ -79,7 +76,6 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
         searchButton.setOnClickListener{
             val textInput = textField.text.toString()
             val queryType = selectedValue
-            //this.musicViewModel.getSomeMusic {  }
             searchByFilter(textInput, queryType)
         }
 
@@ -97,37 +93,56 @@ class MainActivity : ComponentActivity(), OnConversationClicked{
 
         }
 
-        this.datasListRv = findViewById(R.id.datas_rv)
+        this.datasListRv = findViewById(R.id.data_list_rv)
+        val searchEditText: EditText = findViewById(R.id.filter_search_et)
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                musicViewModel.filterMusicList(charSequence.toString())
+            }
+
+            override fun afterTextChanged(editable: Editable?) {}
+        })
     }
 
     private fun setUpUsersConversationsList(conversations: List<DataDto>) {
         val musicDataAdapter = MusicDataAdapter(conversations, this)
         datasListRv.layoutManager = LinearLayoutManager( this)
         datasListRv.adapter = musicDataAdapter
+        this.musicViewModel.filteredArtistList.observe(this) { filteredList ->
+            val artistDto = filteredList.map { ArtistDto(it) }
+            musicDataAdapter.submitList(artistDto)
+        }
+        this.musicViewModel.filteredRecordingsList.observe(this) { filteredList ->
+            val recordDto = filteredList.map { RecordingDto(it) }
+            musicDataAdapter.submitList(recordDto)
+        }
     }
 
     private fun searchByFilter(input: String, queryType: String ){
         this.musicViewModel.search(input, queryType)
     }
-    override fun displayConversation(data: DataDto) {
+    override fun displayCellDetails(data: DataDto) {
         when(data) {
             is ArtistDto ->{
-                Log.d("artistClicked", "you have clicked!!!!")
-
                 val intent = Intent(this, ReleaseGroupsActivity::class.java)
                 intent.putExtra("artist", data.artistData)
                 startActivity(intent)
             }
             is RecordingDto ->{
-                Log.d("recordingClicked", "you have clicked!!!!")
-                //Intent(
-                   // this,
-                   // RecordingDetailsActivity::class.java
-                //).also {
-                    //this.musicViewModel.currentArtistId = data.artistData.id
-                   // startActivity(it)
+
+                val release = data.recordingData.releases
+                val intentReleases = Intent(this, RecordingDetailsActivity::class.java)
+                intentReleases.putExtra("type", "Release")
+                intentReleases.putExtra("releases", release)
+                startActivity(intentReleases)
+
             }
             is ReleaseGroupDto -> {
+                //Not implemented in main filter
+
+            }else->{
 
             }
         }

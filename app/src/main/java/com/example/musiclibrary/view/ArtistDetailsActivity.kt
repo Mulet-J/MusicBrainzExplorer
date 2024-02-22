@@ -2,6 +2,7 @@ package com.example.musiclibrary.view
 
 //import com.example.musiclibrary.model.conversation_model.MessageData
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,19 +12,20 @@ import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.RecordingDto
 import com.example.musiclibrary.model.api.Artist
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
-import com.example.musiclibrary.view.adapters.OnConversationClicked
+import com.example.musiclibrary.view.adapters.OnCellClicked
 import com.example.musiclibrary.viewmodel.MusicViewModel
 import io.reactivex.rxjava3.disposables.Disposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class ArtistDetailsActivity : ComponentActivity(), OnConversationClicked {
+class ArtistDetailsActivity : ComponentActivity(), OnCellClicked {
 
     private val musicViewModel: MusicViewModel by viewModel()
     //private lateinit var messagesListRv: RecyclerView
     //private lateinit var messageEditText: EditText
-    private lateinit var userNameTextView: TextView
+    private lateinit var userNameTv: TextView
     private lateinit var recordingsListRv: RecyclerView
+    private lateinit var backBtn: ImageButton
     //private lateinit var backButtonImageButton: ImageButton
     //private lateinit var userProfilePictureImageView: ImageView
     //private lateinit var conversationAdapter: MusicDataAdapter
@@ -34,14 +36,18 @@ class ArtistDetailsActivity : ComponentActivity(), OnConversationClicked {
 
         // XML views linking to the Activity
         //this.messageEditText = findViewById(R.id.new_message_et)
-        this.userNameTextView = findViewById(R.id.user_complete_name_tv)
+        this.userNameTv = findViewById(R.id.user_complete_name_tv)
+        this.backBtn = findViewById(R.id.back_button)
+        this.backBtn.setOnClickListener{
+            finish()
+        }
         //this.backButtonImageButton = findViewById(R.id.back_button)
         //this.userProfilePictureImageView = findViewById(R.id.user_picture_iv)
 
         val intent = this.intent
-        val valeur = intent.getSerializableExtra("artist") as Artist
-        this.userNameTextView.text = valeur.name
-        getRecordingsByArtist(valeur);
+        val artist = intent.getSerializableExtra("artist") as Artist
+        this.userNameTv.text = artist.name
+        getRecordingsByArtist(artist);
         // Views setup
         //this.setUConversationsList()
         //this.fillConversationViewWithUserData()
@@ -68,7 +74,7 @@ class ArtistDetailsActivity : ComponentActivity(), OnConversationClicked {
     private fun getRecordingsByArtist(artist: Artist):Disposable{
         return this.musicViewModel.getRecordingsByArtist(artist)
     }
-    override fun displayConversation(data: DataDto) {
+    override fun displayCellDetails(data: DataDto) {
         TODO("Not yet implemented")
     }
 

@@ -15,17 +15,16 @@ class ReleaseGroupsViewModel(
     private val artistRepository: ArtistRepository,
 ): ViewModel() {
     private val disposeBag = CompositeDisposable()
-    val artistsList: MutableLiveData<List<Artist>> = MutableLiveData()
     val releaseGroupList: MutableLiveData<List<ReleaseGroup>> = MutableLiveData()
 
 
 
     fun getReleaseGroupsByArtist(artist: Artist): Disposable {
         val artistId = artist.id!!
-        return this.artistRepository.getArtistByGuid2(artistId).subscribe({
-                result -> this.releaseGroupList.postValue(result.releaseGroups)
-        }, { _ ->
-            Log.d("abazerazerazer", "aezzfdqsd")
+        return this.artistRepository.getArtistAndItsReleaseGroupsByGuid(artistId).subscribe({
+                artist -> this.releaseGroupList.postValue(artist.releaseGroups)
+        }, { error ->
+            Log.d("Error in function getReleaseGroupsByArtist", error.message ?: "error")
         }).addTo(disposeBag)
     }
 }
