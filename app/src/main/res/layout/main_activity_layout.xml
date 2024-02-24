@@ -43,7 +43,7 @@
             android:id="@+id/query_search_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_back_white"
+            android:background="@drawable/gradient_black_white"
             android:textColor="@color/white"
             android:padding="10dp"
             android:text="@string/search"
