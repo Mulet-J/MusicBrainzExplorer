@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_green_black">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/item_picture_card"
@@ -19,20 +20,22 @@
             android:layout_height="55dp"
             android:elevation="12dp"
             app:cardCornerRadius="90dp"
+            android:background="@color/white"
             android:layout_centerHorizontal="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginStart="8dp">
+
             <ImageView
                 android:id="@+id/item_picture_iv"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:src="@mipmap/ic_launcher"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:contentDescription="@string/picture_of_an_item">
-            </ImageView>
+                android:background="@color/white"
+                android:contentDescription="@string/picture_of_an_item"
+                android:src="@drawable/baseline_play_circle_24"></ImageView>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -40,6 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/random_name"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/item_picture_card"
@@ -51,6 +55,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="@string/random_text"
+            android:textColor="@color/white"
             android:lines="1"
             android:maxLines="1"
             android:ellipsize="end"

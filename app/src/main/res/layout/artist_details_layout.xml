@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_green_black">
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
@@ -22,7 +23,7 @@
         android:textSize="100sp"
         android:textStyle="bold"
         tools:text="Nirvana"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginStart="8dp"/>
 
     <FrameLayout
