@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_green_black">
 
     <TextView
         android:id="@+id/application_name_tv"
@@ -12,9 +13,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/application_name"
-        android:textColor="@color/black"
         android:textSize="23sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:visibility="visible" />
 
     <EditText
@@ -22,7 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/query_placeholder"
+        android:textColorHint="@color/white"
         android:inputType="text"
+        android:textColor="@color/white"
         android:autofillHints="" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,6 +43,9 @@
             android:id="@+id/query_search_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/gradient_back_white"
+            android:textColor="@color/white"
+            android:padding="10dp"
             android:text="@string/search"
             />
     </LinearLayout>
@@ -48,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Search"
+        android:textColorHint="@color/white"
         />
 
 
