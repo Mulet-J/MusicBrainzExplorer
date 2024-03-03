@@ -14,10 +14,23 @@ internal val remoteModule = module {
     single(
         named(apiMusicBrainzClient)
     ) {
-        createRetrofit(get(), musicBrainzApiUrl)
+        createRetrofit(get(named("apiMusicBrainzHttpClient")), musicBrainzApiUrl)
     }
-    single { createOkHttpClient() }
+    single(named("apiMusicBrainzHttpClient")) { createOkHttpClient() }
 
+    single(
+        named(apiListenBrainzClient)
+    ) {
+        createRetrofit(get(named("apiListenBrainzHttpClient")), listenBrainzApiUrl)
+    }
+    single(named("apiListenBrainzHttpClient")) { createOkHttpClientForListenBrainzApi() }
+
+    single(
+        named(apiYoutubeClient)
+    ) {
+        createRetrofit(get(named("apiYoutubeHttpClient")), googleApiUrl)
+    }
+    single(named("apiYoutubeHttpClient")) { createOkHttpClient() }
     /*
     single(
         named(apiCovertArchiveClient)
@@ -27,6 +40,24 @@ internal val remoteModule = module {
      */
 }
 
+private fun createOkHttpClientForListenBrainzApi(): OkHttpClient{
+    val interceptor = HttpLoggingInterceptor()
+    interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+    val userAgentInterceptor = Interceptor { chain ->
+        val request = chain.request().newBuilder()
+            .header("Authorization", apiListenBrainzToken)
+            .build()
+        chain.proceed(request)
+    }
+
+    return OkHttpClient.Builder()
+        .connectTimeout(20, TimeUnit.SECONDS)
+        .readTimeout(20, TimeUnit.SECONDS)
+        .addInterceptor(interceptor)
+        .addInterceptor(userAgentInterceptor)
+        .build()
+}
 private fun createOkHttpClient(): OkHttpClient {
     val interceptor = HttpLoggingInterceptor()
     interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -66,6 +97,11 @@ inline fun <reified T> createWebService(retrofit: Retrofit): T {
 
 const val musicBrainzApiUrl: String = "https://musicbrainz.org/ws/2/"
 const val covertArchiveApiUrl: String = "https://coverartarchive.org/"
+const val listenBrainzApiUrl: String = "https://api.listenbrainz.org/1/"
+const val googleApiUrl : String = "https://www.googleapis.com/youtube/v3/"
 const val apiMusicBrainzClient: String = "apiMusicBrainzClient"
 const val apiCovertArchiveClient: String = "apiCovertArchiveClient"
+const val apiListenBrainzClient: String = "apiListenBrainzClient"
+const val apiYoutubeClient : String = "apiYoutubeClient"
+const val apiListenBrainzToken: String = "74a5831f-845e-458a-a21d-3bfad7b67e4d"
 const val userAgent = "androidMusicBrainz/1.0"

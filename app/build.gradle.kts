@@ -98,4 +98,7 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //Youtube
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 }

@@ -1,16 +1,15 @@
 package com.example.musiclibrary.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musiclibrary.R
 import com.example.musiclibrary.model.DataDto
-import com.example.musiclibrary.model.ReleaseGroupDto
 import com.example.musiclibrary.model.TrackDto
 import com.example.musiclibrary.model.api.Release
 import com.example.musiclibrary.model.api.ReleaseGroup
@@ -25,7 +24,8 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
     private lateinit var albumTitleTv: TextView
     private var releaseGroupId : String? = ""
     private var releaseId: String? = ""
-    private lateinit var backBtn: ImageButton;
+    private lateinit var backBtn: ImageButton
+    private var cellClick: Boolean = false
     private lateinit var recordingsListRv: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +36,8 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
         this.backBtn.setOnClickListener{
             finish()
         }
+
+
         val intent = this.intent
         val type = intent.getStringExtra("type")
         when(type){
@@ -51,10 +53,19 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
                 this.albumTitleTv.text = releaseToDisplay.title
                 this.releaseId = releaseToDisplay.id
                 this.releaseId?.let { getAllTracksByRelease(it) }
+                this.recordingsViewModel.youtubeSearchResult.observe(this@RecordingDetailsActivity){
+                        value ->  val trackClip = value.items[0].id.videoId
+                    val context = this // On utilise le contexte de la vue
+                    val intent = Intent(context, YoutubePlayerActivity::class.java)
+                    if (cellClick == true) {
+                        intent.putExtra("VIDEO_ID", trackClip)
+                        Log.d("blabla", "blabla")
+                        context.startActivity(intent)
+                    }
+                }
             }
 
         }
-
         this.recordingsViewModel.releases.observe(this@RecordingDetailsActivity){
             value -> val releaseToDisplay = value.get(0)
             releaseToDisplay.id?.let { getAllTracksByRelease(it) }
@@ -65,6 +76,7 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
             val recordingsList = value.map { TrackDto(it) }
             setUpRecordings(recordingsList)
         }
+
         this.recordingsListRv = findViewById(R.id.recordings_rv)
     }
 
@@ -83,8 +95,18 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
     }
 
     override fun displayCellDetails(data: DataDto) {
-        TODO("Not yet implemented")
+        cellClick = true
+        (data as TrackDto).trackData.title?.let { this.recordingsViewModel.getYoutubeMusicClips(it) }
+
     }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        // Supprime tous les observateurs attachés à l'activité ou au fragment
+//        this.recordingsViewModel.youtubeSearchResult.removeObservers(this)
+//    }
+
+
 }
 
 

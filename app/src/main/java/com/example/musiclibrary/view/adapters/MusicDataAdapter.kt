@@ -48,7 +48,7 @@ class MusicDataAdapter (
              ARTIST_TYPE-> {
                     holder.titleTv.text = (item as ArtistDto).artistData.name
 //            holder.lastMessageTv.text = this.formatLastMessage(user.conversations.last())
-
+                    holder.additionalInfoTv.text = (item as ArtistDto).artistData.type
                     holder.itemView.setOnClickListener {
                         onClickHandler.displayCellDetails(item)
                     }
@@ -79,6 +79,14 @@ class MusicDataAdapter (
                     val titleDuration = titleDurationMinutes.toString()+":"+ String.format("%02d",titleDurationSeconds)
                     holder.titleTv.text = textToDisplay
                     holder.additionalInfoTv.text = titleDuration
+//                    holder.itemView.setOnClickListener {
+//                        onClickHandler.displayCellDetails(item)
+//                    }
+                    holder.userProfilePictureIv.setOnClickListener {
+                        if(holder.itemViewType == TRACK_TYPE ){
+                            onClickHandler.displayCellDetails(item)
+                        }
+                    }
                 }
             }
         }
