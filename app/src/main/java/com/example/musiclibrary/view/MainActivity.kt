@@ -22,7 +22,6 @@ import com.example.musiclibrary.di.injectModuleDependencies
 import com.example.musiclibrary.model.ArtistDto
 import com.example.musiclibrary.model.DataDto
 import com.example.musiclibrary.model.RecordingDto
-import com.example.musiclibrary.model.ReleaseGroupDto
 import com.example.musiclibrary.ui.theme.MusicLibraryTheme
 import com.example.musiclibrary.view.adapters.MusicDataAdapter
 import com.example.musiclibrary.view.adapters.OnCellClicked
@@ -139,11 +138,8 @@ class MainActivity : ComponentActivity(), OnCellClicked{
                 startActivity(intentReleases)
 
             }
-            is ReleaseGroupDto -> {
-                //Not implemented in main filter
-
-            }else->{
-
+            else->{
+                Log.d("Error in function displayCellDetails ", "error")
             }
         }
     }

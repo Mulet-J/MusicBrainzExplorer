@@ -41,11 +41,22 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
         val intent = this.intent
         val type = intent.getStringExtra("type")
         when(type){
-            "ReleaseGroupDto" -> {
+            "Track" -> {
                 val releaseGroup = intent.getSerializableExtra("release-group") as ReleaseGroup
                 this.albumTitleTv.text = releaseGroup.title
                 this.releaseGroupId = releaseGroup.id
                 this.releaseGroupId?.let { getAllReleaseByReleaseGroup(it) }
+
+                this.recordingsViewModel.youtubeSearchResult.observe(this@RecordingDetailsActivity) { value ->
+                    val trackClip = value.items[0].id.videoId
+                    val context = this // On utilise le contexte de la vue
+                    val intent = Intent(context, YoutubePlayerActivity::class.java)
+                    if (cellClick) {
+                        intent.putExtra("VIDEO_ID", trackClip)
+                        context.startActivity(intent)
+                    }
+                }
+
             }
             "Release"->{
                 val release = intent.getSerializableExtra("releases") as List<Release>
@@ -59,10 +70,11 @@ class RecordingDetailsActivity : ComponentActivity(), OnCellClicked {
                     val intent = Intent(context, YoutubePlayerActivity::class.java)
                     if (cellClick == true) {
                         intent.putExtra("VIDEO_ID", trackClip)
-                        Log.d("blabla", "blabla")
                         context.startActivity(intent)
                     }
                 }
+            }else->{
+                Log.d("Error in function onCreate ", "error")
             }
 
         }

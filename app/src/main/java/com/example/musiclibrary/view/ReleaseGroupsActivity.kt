@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musiclibrary.R
@@ -58,7 +57,7 @@ class ReleaseGroupsActivity : ComponentActivity(), OnCellClicked {
 
         val releaseGroup= data as ReleaseGroupDto
         val intentReleases = Intent(this, RecordingDetailsActivity::class.java)
-        intentReleases.putExtra("type", "ReleaseGroupDto")
+        intentReleases.putExtra("type", "Track")
         intentReleases.putExtra("release-group", releaseGroup.releaseGroupData)
         startActivity(intentReleases)
     }
