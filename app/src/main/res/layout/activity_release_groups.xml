@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25sp"
-            android:text="Albums"
+            android:text="@string/Albums"
             android:textColor="@color/white"
             android:textAlignment="center"/>
 
@@ -56,7 +56,7 @@
             android:id="@+id/release_groups_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/release_group_item_layout"
+            tools:listitem="@layout/item_layout"
             tools:itemCount="5"/>
 
     </FrameLayout>

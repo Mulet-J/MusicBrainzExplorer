@@ -4,7 +4,6 @@
     <string name="query_placeholder">Tappez votre recherche ici</string>
     <string name="application_name">MusicLibrary</string>
     <string name="artist_name_formatted_display">%1$s %2$s</string>
-    <string name="title_activity_release_groups">Blabla</string>
     <string name="picture_of_an_item">Picture of an item</string>
     <string name="random_name">Damien</string>
     <string name="random_text">placeholder text</string>
@@ -13,4 +12,6 @@
     <string name="return_value">Retour</string>
     <string name="back_button_to_quit_the_current_activity">Bouton permettant de quitter le menu actuel</string>
     <string name="Search">Rechercher</string>
+    <string name="Albums">Albums</string>
+    <string name="Pistes">Pistes</string>
 </resources>

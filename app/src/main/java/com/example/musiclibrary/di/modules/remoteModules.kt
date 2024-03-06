@@ -1,4 +1,5 @@
 package com.example.musiclibrary.di.modules
+import com.example.musiclibrary.di.Constants
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,33 +12,40 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 internal val remoteModule = module {
-    single(
-        named(apiMusicBrainzClient)
-    ) {
-        createRetrofit(get(), musicBrainzApiUrl)
-    }
-    single { createOkHttpClient() }
 
-    /*
+    // Creation of the MusicBrainz API singleton (the main API that allows us to retrieve
+    // information about artists, albums, songs, etc.)
     single(
-        named(apiCovertArchiveClient)
-    ) { 
-        createRetrofit(get(), covertArchiveApiUrl)
+        named(Constants.apiMusicBrainzClient)
+    ) {
+        createRetrofit(get(named("apiMusicBrainzHttpClient")), Constants.musicBrainzApiUrl)
     }
-     */
+    single(named("apiMusicBrainzHttpClient")) { createOkHttpClient() }
+
+    // Creation of the Google YouTube API singleton that allows us to play youtube music videos
+    single(
+        named(Constants.apiYoutubeClient)
+    ) {
+        createRetrofit(get(named("apiYoutubeHttpClient")), Constants.googleApiUrl)
+    }
+    single(named("apiYoutubeHttpClient")) { createOkHttpClient() }
 }
 
+
+// Function to create an OkHttpClient instance with logging and User-Agent interceptors
 private fun createOkHttpClient(): OkHttpClient {
+    // Creating an interceptor to log HTTP requests and responses
     val interceptor = HttpLoggingInterceptor()
     interceptor.level = HttpLoggingInterceptor.Level.BODY
 
+    // Creating an interceptor to add a User-Agent header to each request (required by the MusicBrainz API)
     val userAgentInterceptor = Interceptor { chain ->
         val request = chain.request().newBuilder()
-            .header("User-Agent", userAgent)
+            .header("User-Agent", Constants.userAgent)
             .build()
         chain.proceed(request)
     }
-
+    // Creating and configuring an OkHttpClient client
     return OkHttpClient.Builder()
         .connectTimeout(20, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
@@ -46,12 +54,14 @@ private fun createOkHttpClient(): OkHttpClient {
         .build()
 }
 
+
+// Function to create a Retrofit client
 fun createRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
     val gsonConverter =
         GsonConverterFactory.create(
             GsonBuilder().create()
         )
-
+    // Configuring and building Retrofit
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(gsonConverter)
@@ -60,12 +70,7 @@ fun createRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
         .build()
 }
 
+// Inline function to create a web service interface using Retrofit
 inline fun <reified T> createWebService(retrofit: Retrofit): T {
     return retrofit.create(T::class.java)
 }
-
-const val musicBrainzApiUrl: String = "https://musicbrainz.org/ws/2/"
-const val covertArchiveApiUrl: String = "https://coverartarchive.org/"
-const val apiMusicBrainzClient: String = "apiMusicBrainzClient"
-const val apiCovertArchiveClient: String = "apiCovertArchiveClient"
-const val userAgent = "androidMusicBrainz/1.0"
