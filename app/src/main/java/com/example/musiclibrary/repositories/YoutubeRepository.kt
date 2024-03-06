@@ -8,6 +8,7 @@ class YoutubeRepository(
     private val youtubeApi: YoutubeApiService
 ) {
 
+    // Searches for videos based on a query string
     fun searchYoutubeVideos(query: String): Flowable<YoutubeSearchResponse> {
         return this.youtubeApi.search("snippet", query, "video", 10, "AIzaSyA7TMRbDsYVswMRRT2GUEtzqXYhmics_Z4")
     }

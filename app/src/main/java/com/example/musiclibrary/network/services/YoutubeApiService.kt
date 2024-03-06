@@ -7,6 +7,7 @@ import retrofit2.http.Query
 
 interface YoutubeApiService {
 
+    // Searches for videos based on a query string
     @GET("search")
     fun search(
         @Query("part") part: String,
